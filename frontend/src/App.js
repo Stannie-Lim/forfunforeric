@@ -1,5 +1,7 @@
 import React, { useEffect, useContext, useState, useMemo } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import axios from 'axios';
+
 import { Header } from "./Components/Header";
 import { Watchlist } from "./Components/Watchlist";
 import { Watched } from "./Components/Watched";
@@ -21,6 +23,17 @@ import { ViewMore } from "./Components/ViewMore";
 
 function App() {
   const [value, setValue] = useState(false);
+
+  useEffect(() => {
+    const getData = async() => {
+      const { data } = await axios.get('http://127.0.0.1:5000');
+      // this is the data that was sent from line 9 in app.py
+      console.log(data);
+    };
+
+    getData();
+  }, []);
+
   return (
     <userContext.Provider value={{ value, setValue }}>
       <GlobalProvider>
